@@ -1,5 +1,3 @@
-"""Takes input from a user and solves sudoku puzzels."""
-
 def print_board(board):
     """Helper function to print the Sudoku board."""
     for row in board:
@@ -58,11 +56,15 @@ def solve_sudoku(board):
     return False
 
 def main():
-    # User input for Sudoku puzzle (0 denotes empty cells)
+    # User input for Sudoku puzzle ('b' denotes empty cells)
     board = []
-    print("Enter the Sudoku puzzle row by row (use 0 for empty cells):")
+    print("Enter the Sudoku puzzle row by row (use 'b' for empty cells):")
     for i in range(9):
-        row = list(map(int, input(f"Row {i + 1}: ").strip().split()))
+        row_input = input(f"Row {i + 1}: ").strip()
+        if len(row_input) != 9 or not all(c.isdigit() or c == 'b' for c in row_input):
+            print("Invalid input. Each row must contain exactly 9 characters, either digits or 'b'.")
+            return
+        row = [int(c) if c != 'b' else 0 for c in row_input]
         board.append(row)
 
     print("\nSudoku puzzle to solve:")
